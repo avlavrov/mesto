@@ -1,0 +1,15 @@
+.place__url-heading {
+  margin-top: auto;
+  margin-bottom: 12px;
+  font-size: 12px;
+  line-height: 170%;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #AAAAAA;
+}
+
+@media all and (max-width: 768px) {
+  .place__url-heading {
+    line-height: 12px;
+  }
+}
