@@ -1,15 +1,18 @@
-.footer__copyright {
+.profile__job {
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
-  color: #545454;
+  color: #FFFFFF;
+  padding: 0;
+  margin-top: 7px;
 }
 
 @media all and (max-width: 700px) {
-  .footer__copyright {
-    margin-left: 16px;
+  .profile__job {
+    margin-top: 0;
     font-size: 14px;
     line-height: 17px;
+    text-align: center;
   }
 }
