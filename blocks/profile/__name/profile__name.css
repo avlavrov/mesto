@@ -1,5 +1,5 @@
 .profile__name {
-  width: calc(100%-42px);
+  width: 100%;
   color: white;
   font-style: normal;
   font-weight: 500;
@@ -14,7 +14,6 @@
 
 @media all and (max-width: 700px) {
   .profile__name {
-    width: calc(100%-28px);
     font-size: 27px;
     line-height: 33px;
     text-align: center;
