@@ -1,5 +1,5 @@
 .popup__input {
-  min-width: 358px;
+  /* min-width: 358px; */
   height: 27px;
   font-weight: normal;
   font-size: 14px;
@@ -13,7 +13,7 @@
 
 @media all and (max-width: 470px) {
   .popup__name {
-    width: calc(238/320*100vw);
-    min-width: 200px;
+    /* min-width: calc(238/320*100vw); */
+    /* width: calc(238/320*100vw); */
   }
 }
