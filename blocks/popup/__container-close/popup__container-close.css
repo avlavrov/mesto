@@ -13,7 +13,6 @@
   background-repeat: no-repeat;
   object-fit: cover;
   transform: rotate(45deg);
-
 }
 
 .popup__container-close:hover {
@@ -23,13 +22,14 @@
 
 .popup__container-close:focus {
   outline: none;
-  transform: scale(1.1);
-
+  transform: scale(1.1) rotate(45deg);
 }
 
-@media all and (max-width: 470px) {
+@media all and (max-width: 540px) {
   .popup__container-close {
-    top: -45px;
+    min-width: 20px;
+    min-height: 20px;
+    top: -38px;
     right: 0;
   }
 }

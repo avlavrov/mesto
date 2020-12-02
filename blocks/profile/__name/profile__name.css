@@ -1,4 +1,5 @@
 .profile__name {
+  width: calc(100%-42px);
   color: white;
   font-style: normal;
   font-weight: 500;
