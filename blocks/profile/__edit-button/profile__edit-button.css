@@ -6,8 +6,7 @@
   background-position: center;
   background-repeat: no-repeat;
   object-fit: cover;
-  margin-left: 18px;
-  margin-top: 15px;
+  margin: 15px 0 0 18px;
   border: 1px solid white;
   padding: 0;
   transition: 0.4s linear;
