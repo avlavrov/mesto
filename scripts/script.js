@@ -3,11 +3,9 @@ let closePopupButton = document.querySelector('.popup__container-close');
 let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
 let popup = document.querySelector('.popup');
-let newProfileName = popup.querySelector('.popup__input_name');
-let newProfileJob = popup.querySelector('.popup__input_job');
+let newProfileName = popup.querySelector('.popup__input_type_name');
+let newProfileJob = popup.querySelector('.popup__input_type_job');
 let formElement = popup.querySelector('.popup__form');
-
-console.dir(newProfileName);
 
 function openPopup() {
   newProfileName.value = profileName.innerText;
