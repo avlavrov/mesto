@@ -26,61 +26,15 @@
         <button type="button" class="profile__add-button"></button>
       </section>
       <section class="elements page__elements-margin">
-        <div class="elements__element">
-          <img class="elements__image" src="./images/kirill-pershin-karachaevsk-unsplash.jpg" alt="Карачаевск">
-          <button type="button" class="elements__delete-button"><img class="" src="./images/trash.svg" alt="Карачаевск"></button>
 
-          <div class="elements__footer">
-            <h2 class="elements__text">Карачаевск</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </div>
-        <div class="elements__element">
-          <img class="elements__image" src="./images/kirill-pershin-goraelbrus-unsplash.jpg" alt="Гора Эльбрус">
-          <button type="button" class="elements__delete-button"><img class="elements__delete" src="./images/trash.svg" alt="Карачаевск"></button>
-          <div class="elements__footer">
-            <h2 class="elements__text">Гора Эльбрус</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </div>
-        <div class="elements__element">
-          <img class="elements__image" src="./images/kirill-pershin-dombai-unsplash.jpg" alt="Домбай">
-          <button type="button"><img class="elements__delete" src="./images/trash.svg" alt="Карачаевск"></button>
-          <div class="elements__footer">
-            <h2 class="elements__text">Домбай</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </div>
-        <div class="elements__element">
-          <img class="elements__image" src="./images/kirill-pershin-goraelbrus-unsplash.jpg" alt="Гора Эльбрус">
-          <button type="button"><img class="elements__delete" src="./images/trash.svg" alt="Карачаевск"></button>
-          <div class="elements__footer">
-            <h2 class="elements__text">Гора Эльбрус</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </div>
-        <div class="elements__element">
-          <img class="elements__image" src="./images/kirill-pershin-dombai-unsplash.jpg" alt="Домбай">
-          <button type="button"><img class="elements__delete" src="./images/trash.svg" alt="Карачаевск"></button>
-          <div class="elements__footer">
-            <h2 class="elements__text">Домбай</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </div>
-        <div class="elements__element">
-          <img class="elements__image" src="./images/kirill-pershin-karachaevsk-unsplash.jpg" alt="Карачаево-Черкессия">
-          <button type="button"><img class="elements__delete" src="./images/trash.svg" alt="Карачаевск"></button>
-          <div class="elements__footer">
-            <h2 class="elements__text">Карачаево-Черкессия</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </div>
       </section>
     </main>
     <footer class="footer">
       <span class="footer__copyright">&copy; 2020 Mesto Russia</span>
     </footer>
   </div>
+  <!-- Popups -->
+  <!-- New user popup -->
   <div class="popup">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -92,6 +46,7 @@
       <button type="button" class="popup__container-close"></button>
     </div>
   </div>
+  <!-- new place popup -->
   <div class="popup">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
@@ -103,17 +58,28 @@
       <button type="button" class="popup__container-close"></button>
     </div>
   </div>
+  <!-- big foto popup -->
   <div class="popup popup_theme_dark">
     <figure class="popup__image-container">
-      <img class="popup__image"
-        src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg"
-        alt="Карачаево-Черкессия">
-      <figcaption class="popup__caption">Архыз</figcaption>
+      <img class="popup__image" src="" alt="">
+      <figcaption class="popup__caption"></figcaption>
       <button type="button" class="popup__container-close"></button>
     </figure>
-
-
   </div>
+  <!-- Templates -->
+  <!-- place template -->
+  <template id="place-template">
+    <div class="elements__element">
+      <img class="elements__image" src="" alt="">
+      <button type="button" class="elements__delete-button"><img class="" src="./images/trash.svg"
+          alt="Карачаевск"></button>
+      <div class="elements__footer">
+        <h2 class="elements__text"></h2>
+        <button type="button" class="elements__like"></button>
+      </div>
+    </div>
+  </template>
+
   <script src="./scripts/script.js"></script>
 </body>
 
