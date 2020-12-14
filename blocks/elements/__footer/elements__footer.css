@@ -1,5 +1,6 @@
 .elements__footer {
   width: 100%;
+  min-height: 78.8px;
   background-color: white;
   display: flex;
   justify-content: space-between;

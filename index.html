@@ -35,7 +35,7 @@
   </div>
   <!-- Popups -->
   <!-- New user popup -->
-  <div class="popup">
+  <div class="popup popup__user">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form action="#" name="edit-profile" class="popup__form">
@@ -47,19 +47,19 @@
     </div>
   </div>
   <!-- new place popup -->
-  <div class="popup">
+  <div class="popup popup__place">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
-      <form action="#" name="edit-profile" class="popup__form">
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Название">
-        <input type="text" name="job" class="popup__input popup__input_type_job" placeholder="Ссылка на картинку">
+      <form action="#" name="new-place" class="popup__form">
+        <input type="text" name="place-name" class="popup__input popup__input_type_name" placeholder="Название">
+        <input type="text" name="place-foto-link" class="popup__input popup__input_type_job" placeholder="Ссылка на картинку">
         <button type="submit" class="popup__button">Создать</button>
       </form>
       <button type="button" class="popup__container-close"></button>
     </div>
   </div>
   <!-- big foto popup -->
-  <div class="popup popup_theme_dark">
+  <div class="popup popup_theme_dark popup__foto">
     <figure class="popup__image-container">
       <img class="popup__image" src="" alt="">
       <figcaption class="popup__caption"></figcaption>
@@ -72,7 +72,7 @@
     <div class="elements__element">
       <img class="elements__image" src="" alt="">
       <button type="button" class="elements__delete-button"><img class="" src="./images/trash.svg"
-          alt="Карачаевск"></button>
+          alt="Удалить"></button>
       <div class="elements__footer">
         <h2 class="elements__text"></h2>
         <button type="button" class="elements__like"></button>
