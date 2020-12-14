@@ -50,9 +50,9 @@ function deletePlace(evt) {
 };
 
 // popups
-let popupUser = document.querySelector('.popup__user');
-let popupFoto = document.querySelector('.popup__foto');
-let popupPlace = document.querySelector('.popup__place');
+let popupUser = document.querySelector('.popup-user');
+let popupFoto = document.querySelector('.popup-foto');
+let popupPlace = document.querySelector('.popup-place');
 // new place popup
 let newPlaceName = popupPlace.querySelector('[name="place-name"]');
 let newPlaceLink = popupPlace.querySelector('[name="place-foto-link"]');
@@ -75,7 +75,7 @@ function openFotoPopup(evt) {
 }
 function openPopup(popupVariant) {
   popupVariant.classList.add('popup_opened');
-  if (popupVariant.classList.contains('popup__user')) {
+  if (popupVariant.classList.contains('popup-user')) {
     newProfileName.value = profileName.innerText;
     newProfileJob.value = profileJob.innerText;
   };
