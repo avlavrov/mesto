@@ -14,7 +14,8 @@ const profileJob = document.querySelector('.profile__job');
 const newProfileName = popupUser.querySelector('[name="name"]');
 const newProfileJob = popupUser.querySelector('[name="job"]');
 // foto popup
-const fotoCaption =  popupFoto.querySelector('.popup__caption');
+const popupFotoImage = popupFoto.querySelector('.popup__image');
+const fotoCaption = popupFoto.querySelector('.popup__caption');
 // buttons
 const buttonUserEdit = document.querySelector('.profile__edit-button');
 const buttonNewPlace = document.querySelector('.profile__add-button');
@@ -36,8 +37,9 @@ function handleDeletePlace(evt) {
 };
 
 function handleOpenFotoPopup(item) {
-  popupFoto.querySelector('.popup__image').src = item.link;
- fotoCaption.textContent = item.name;
+  popupFotoImage.src = item.link;
+  popupFotoImage.alt = item.name;
+  fotoCaption.textContent = item.name;
   openPopup(popupFoto);
 }
 
@@ -70,12 +72,13 @@ function createPlace(item) {
   const fotoImage = placeElement.querySelector('.elements__image');
   const likeButton = placeElement.querySelector('.elements__like');
   const deleteButton = placeElement.querySelector('.elements__delete-button');
+  const placeName = placeElement.querySelector('.elements__text');
   fotoImage.src = item.link;
   fotoImage.alt = item.name;
-  placeElement.querySelector('.elements__text').textContent = item.name;
+  placeName.textContent = item.name;
   likeButton.addEventListener('click', handleLikePlace);
   deleteButton.addEventListener('click', handleDeletePlace);
-  placeElement.querySelector('.elements__image').addEventListener('click', function () { handleOpenFotoPopup(item) });
+  fotoImage.addEventListener('click', function () { handleOpenFotoPopup(item) });
   return placeElement;
 };
 
