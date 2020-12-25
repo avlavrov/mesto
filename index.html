@@ -42,10 +42,10 @@
         <fieldset class="popup__form-set">
           <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required
             minlength=2 maxlength=40>
-          <span class="name-error"></span>
+          <span class="popup__error-message name-error"></span>
           <input type="text" name="job" class="popup__input popup__input_type_job" placeholder="Работа, должность"
             required minlength=2 maxlength=200>
-          <span class="job-error"></span>
+          <span class="popup__error-message job-error"></span>
         <button type="submit" class="popup__button popup__button_user-save">Сохранить</button>
       </fieldset>
       </form>
@@ -60,10 +60,10 @@
         <!-- ща все филды удалю -->
         <fieldset class="popup__form-set">
           <input type="text" name="place-name" class="popup__input popup__input_type_name" placeholder="Название" required minlength=2 maxlength=30>
-          <span class="place-name-error"></span>
+          <span class="popup__error-message place-name-error"></span>
           <input name="place-foto-link" class="popup__input popup__input_type_job"
             placeholder="Ссылка на картинку" required type="url">
-          <span class="place-foto-link-error"></span>
+          <span class="popup__error-message place-foto-link-error"></span>
         <button type="submit" class="popup__button popup__button_place-save">Создать</button>
       </fieldset>
       </form>
