@@ -1,4 +1,5 @@
 // popups
+const popupList = Array.from(document.querySelectorAll('.popup'));
 const popupUser = document.querySelector('.popup-user');
 const popupFoto = document.querySelector('.popup-foto');
 const popupPlace = document.querySelector('.popup-place');
@@ -23,9 +24,27 @@ const closePopupButtonProfile = document.querySelector('.popup-close-profile');
 const closePopupButtonPlace = document.querySelector('.popup-close-place');
 const closePopupButtonFoto = document.querySelector('.popup-close-foto');
 const fotos = document.querySelector('.elements');
+const buttonSaveUser = document.querySelector('.popup__button_user-save');
+const buttonSavePlace = document.querySelector('.popup__button_place-save');
 // service functions
+function closePopupByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const popupElement = document.querySelector('.popup_opened');
+    popupElement.classList.remove('popup_opened');
+  }
+}
+
+function setPopupEscListener() {
+  document.addEventListener('keydown', closePopupByEsc);
+};
+
+function removePopupEscListener() {
+  document.removeEventListener('keydown', closePopupByEsc);
+};
+
 function openPopup(type) {
   type.classList.add('popup_opened');
+  setPopupEscListener();
 };
 // handle functions
 function handleLikePlace(evt) {
@@ -43,10 +62,32 @@ function handleOpenFotoPopup(item) {
   openPopup(popupFoto);
 }
 
-function handleOpenUserPopup(type) {
+function handleOpenUserPopup() {
+  const formElement = popupUser.querySelector('.popup__form');
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   newProfileName.value = profileName.textContent;
   newProfileJob.value = profileJob.textContent;
-  openPopup(type);
+  buttonSaveUser.classList.remove('popup__button_disabled');
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement)
+  });
+  openPopup(popupUser);
+}
+
+function handleOpenPlacePopup() {
+  const formElement = popupPlace.querySelector('.popup__form');
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  formElement.reset();
+  buttonSavePlace.classList.add('popup__button_disabled');
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement)
+  });
+  openPopup(popupPlace);
+}
+
+function closePopup(closeType) {
+  closeType.closest('.popup').classList.remove('popup_opened');
+  removePopupEscListener;
 }
 
 function handleSaveProfile(evt) {
@@ -59,13 +100,13 @@ function handleSaveProfile(evt) {
 function handleAddNewPlace(evt) {
   evt.preventDefault();
   addPlace({ name: newPlaceName.value, link: newPlaceLink.value });
-  formPlace.reset();
   closePopup(closePopupButtonPlace);
 }
-function closePopup(closeType) {
-  closeType.closest('.popup').classList.remove('popup_opened');
+function closePopupOverlay(evt, popupElement) {
+  if (evt.target === popupElement) {
+    popupElement.classList.remove('popup_opened');
+  }
 }
-
 // main functions
 function createPlace(item) {
   const placeElement = placeTemplate.cloneNode(true);
@@ -86,12 +127,19 @@ function addPlace(item) {
   fotos.prepend(createPlace(item));
 };
 
+function setPopupOverlayListeners() {
+  popupList.forEach((popupElement) => {
+    popupElement.addEventListener('click', function (evt) { closePopupOverlay(evt, popupElement) });
+  });
+};
+
 // main page code
 initialCards.forEach(addPlace);
-buttonUserEdit.addEventListener('click', function () { handleOpenUserPopup(popupUser); });
-buttonNewPlace.addEventListener('click', function () { openPopup(popupPlace); });
+buttonUserEdit.addEventListener('click', handleOpenUserPopup);
+buttonNewPlace.addEventListener('click', handleOpenPlacePopup);
 formUser.addEventListener('submit', handleSaveProfile);
 formPlace.addEventListener('submit', handleAddNewPlace);
 closePopupButtonProfile.addEventListener('click', function () { closePopup(closePopupButtonProfile); });
 closePopupButtonPlace.addEventListener('click', function () { closePopup(closePopupButtonPlace); });
 closePopupButtonFoto.addEventListener('click', function () { closePopup(closePopupButtonFoto); });
+setPopupOverlayListeners();
