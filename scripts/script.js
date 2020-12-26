@@ -30,21 +30,13 @@ const buttonSavePlace = document.querySelector('.popup__button_place-save');
 function closePopupByEsc(evt) {
   if (evt.key === 'Escape') {
     const popupElement = document.querySelector('.popup_opened');
-    popupElement.classList.remove('popup_opened');
+    closePopup(popupElement)('popup_opened');
   }
 }
 
-function setPopupEscListener() {
-  document.addEventListener('keydown', closePopupByEsc);
-};
-
-function removePopupEscListener() {
-  document.removeEventListener('keydown', closePopupByEsc);
-};
-
 function openPopup(type) {
   type.classList.add('popup_opened');
-  setPopupEscListener();
+  document.addEventListener('keydown', closePopupByEsc);
 };
 // handle functions
 function handleLikePlace(evt) {
@@ -85,9 +77,9 @@ function handleOpenPlacePopup() {
   openPopup(popupPlace);
 }
 
-function closePopup(closeType) {
-  closeType.closest('.popup').classList.remove('popup_opened');
-  removePopupEscListener;
+function closePopup(popupElement) {
+  popupElement.closest('.popup').classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 function handleSaveProfile(evt) {
@@ -104,7 +96,7 @@ function handleAddNewPlace(evt) {
 }
 function closePopupOverlay(evt, popupElement) {
   if (evt.target === popupElement) {
-    popupElement.classList.remove('popup_opened');
+    closePopup(popupElement);
   }
 }
 // main functions
@@ -119,7 +111,7 @@ function createPlace(item) {
   placeName.textContent = item.name;
   likeButton.addEventListener('click', handleLikePlace);
   deleteButton.addEventListener('click', handleDeletePlace);
-  fotoImage.addEventListener('click', function () { handleOpenFotoPopup(item) });
+  fotoImage.addEventListener('click', () => { handleOpenFotoPopup(item) });
   return placeElement;
 };
 
@@ -129,7 +121,7 @@ function addPlace(item) {
 
 function setPopupOverlayListeners() {
   popupList.forEach((popupElement) => {
-    popupElement.addEventListener('click', function (evt) { closePopupOverlay(evt, popupElement) });
+    popupElement.addEventListener('click', (evt) => { closePopupOverlay(evt, popupElement) });
   });
 };
 
@@ -139,7 +131,7 @@ buttonUserEdit.addEventListener('click', handleOpenUserPopup);
 buttonNewPlace.addEventListener('click', handleOpenPlacePopup);
 formUser.addEventListener('submit', handleSaveProfile);
 formPlace.addEventListener('submit', handleAddNewPlace);
-closePopupButtonProfile.addEventListener('click', function () { closePopup(closePopupButtonProfile); });
-closePopupButtonPlace.addEventListener('click', function () { closePopup(closePopupButtonPlace); });
-closePopupButtonFoto.addEventListener('click', function () { closePopup(closePopupButtonFoto); });
+closePopupButtonProfile.addEventListener('click', () => { closePopup(closePopupButtonProfile); });
+closePopupButtonPlace.addEventListener('click', () => { closePopup(closePopupButtonPlace); });
+closePopupButtonFoto.addEventListener('click', () => { closePopup(closePopupButtonFoto); });
 setPopupOverlayListeners();
