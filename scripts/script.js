@@ -30,7 +30,7 @@ const buttonSavePlace = document.querySelector('.popup__button_place-save');
 function closePopupByEsc(evt) {
   if (evt.key === 'Escape') {
     const popupElement = document.querySelector('.popup_opened');
-    closePopup(popupElement)('popup_opened');
+    closePopup(popupElement);
   }
 }
 
