@@ -1,9 +1,4 @@
-import { openPopup, closePopup } from './script.js';
-const _popupFoto = document.querySelector('.popup-foto');
-const _popupFotoImage = _popupFoto.querySelector('.popup__image');
-const _fotoCaption = _popupFoto.querySelector('.popup__caption');
-const _closePopupButtonFoto = document.querySelector('.popup-close-foto');
-_closePopupButtonFoto.addEventListener('click', () => { closePopup(_closePopupButtonFoto); });
+import { openPopup, popupFoto, popupFotoImage, fotoCaption} from './index.js';
 
 export class Card {
   constructor(cardAttributes, cardTemplate) {
@@ -20,9 +15,10 @@ export class Card {
   }
 
   _setEventListeners() {
+    this._elementImage = this._element.querySelector('.elements__image');
     this._element.querySelector('.elements__like').addEventListener('click', this._handleLikePlace);
     this._element.querySelector('.elements__delete-button').addEventListener('click', this._handleDeletePlace);
-    this._element.querySelector('.elements__image').addEventListener('click', () => { this._handleOpenFotoPopup(this) });
+    this._elementImage.addEventListener('click', () => { this._handleOpenFotoPopup() });
 
   };
 
@@ -36,18 +32,18 @@ export class Card {
   };
 
   _handleOpenFotoPopup() {
-    _popupFotoImage.src = this._link;
-    _popupFotoImage.alt = this._name;
-    _fotoCaption.textContent = this._name;
-    openPopup(_popupFoto);
+    popupFotoImage.src = this._link;
+    popupFotoImage.alt = this._name;
+    fotoCaption.textContent = this._name;
+    openPopup(popupFoto);
   }
 
   generateCard() {
     this._getTemplate();
     this._setEventListeners();
     this._element.querySelector('.elements__text').textContent = this._name;
-    this._element.querySelector('.elements__image').alt = this._name;
-    this._element.querySelector('.elements__image').src = this._link;
+    this._elementImage.alt = this._name;
+    this._elementImage.src = this._link;
     return this._element;
   }
 }

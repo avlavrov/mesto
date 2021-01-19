@@ -1,11 +1,3 @@
-export const validatorConfig = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error-message'
-}
-
 export class FormValidator {
   constructor(config, formSelector) {
     this._inputSelector = config.inputSelector;
@@ -14,9 +6,10 @@ export class FormValidator {
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
     this._formSelector = formSelector;
+    this._buttonElement = this._formSelector.querySelector(this._submitButtonSelector);
   }
 
-  _hideInputError(formElement, inputElement) {
+  hideInputError(formElement, inputElement) {
     const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
@@ -29,7 +22,7 @@ export class FormValidator {
     })
   }
 
-  _toggleButtonState(inputList, buttonElement) {
+  toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._inactiveButtonClass);
       buttonElement.disabled = true;
@@ -47,13 +40,12 @@ export class FormValidator {
   };
 
   _checkInputValidity(formElement, inputElement, inputList) {
-    const buttonElement = formElement.querySelector(this._submitButtonSelector);
     if (!inputElement.validity.valid) {
       this._showInputError(formElement, inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(formElement, inputElement);
+      this.hideInputError(formElement, inputElement);
     }
-    this._toggleButtonState(inputList, buttonElement);
+    this.toggleButtonState(inputList, this._buttonElement);
   };
 
   _setEventListeners(formElement) {
