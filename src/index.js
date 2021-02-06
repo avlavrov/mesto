@@ -1,14 +1,15 @@
+import './pages/index.css';
 //Classes Import
-import { Section } from './components/Section.js';
-import { Card } from './components/Card.js';
-import { FormValidator } from './components/FormValidator.js';
-import { PopupWithForm } from './components/PopupWithForm.js';
-import { PopupWithImage } from './components/PopupWithImage.js';
-import {UserInfo} from './components/UserInfo.js';
+import { Section } from './scripts/components/Section.js';
+import { Card } from './scripts/components/card.js';
+import { FormValidator } from './scripts/components/FormValidator.js';
+import { PopupWithForm } from './scripts/components/PopupWithForm.js';
+import { PopupWithImage } from './scripts/components/PopupWithImage.js';
+import {UserInfo} from './scripts/components/UserInfo.js';
 //Data Imort
-import { initialCards } from './utils/initialCards.js';
+import { initialCards } from './scripts/utils/initialCards.js';
 //Constants Import
-import { validatorConfig, sectionPlaces, buttonUserEdit, buttonNewPlace, formUser, newProfileName, newProfileJob, formPlace } from './utils/constants.js';
+import { validatorConfig, sectionPlaces, buttonUserEdit, buttonNewPlace, formUser, newProfileName, newProfileJob, formPlace } from './scripts/utils/constants.js';
 
 function makeCard(item) {
   const card = new Card(
