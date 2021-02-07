@@ -46,8 +46,9 @@ imagePopup.setEventListeners();
 
 // handle functions
 function handleOpenUserPopup() {
-  newProfileName.value = userInfo.getUserInfo().name;
-  newProfileJob.value = userInfo.getUserInfo().job;
+  const profile = userInfo.getUserInfo();
+  newProfileName.value = profile.name;
+  newProfileJob.value = profile.job;
   userFormValidation.resetValidation();
   userPopup.open();
 }
