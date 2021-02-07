@@ -5,7 +5,7 @@ import { Card } from './scripts/components/card.js';
 import { FormValidator } from './scripts/components/FormValidator.js';
 import { PopupWithForm } from './scripts/components/PopupWithForm.js';
 import { PopupWithImage } from './scripts/components/PopupWithImage.js';
-import {UserInfo} from './scripts/components/UserInfo.js';
+import { UserInfo } from './scripts/components/UserInfo.js';
 //Data Imort
 import { initialCards } from './scripts/utils/initialCards.js';
 //Constants Import
@@ -15,32 +15,34 @@ function makeCard(item) {
   const card = new Card(
     item,
     '#place-template',
-    () => {
-      const imagePopup = new PopupWithImage('.popup-foto');
-      imagePopup.open(item);
-      imagePopup.setEventListeners();
-    }).generateCard();
-    return card;
+    () => {imagePopup.open(item)}).generateCard();
+  return card;
 }
 
 // Classes
 const userFormValidation = new FormValidator(validatorConfig, formUser);
 const placeFormValidation = new FormValidator(validatorConfig, formPlace);
-const userInfo = new UserInfo({name: '.profile__name', job: '.profile__job'});
+const userInfo = new UserInfo({ name: '.profile__name', job: '.profile__job' });
 const section = new Section({
   items: initialCards,
-  renderer: (item) => {section.addItem(makeCard(item))}
+  renderer: (item) => { section.addItem(makeCard(item)) }
 }, sectionPlaces);
 const userPopup = new PopupWithForm('.popup-user',
   (inputData) => {
     userInfo.setUserInfo(inputData);
     userPopup.close();
   });
+    userPopup.setEventListeners();//new
+
 const newPlacePopup = new PopupWithForm('.popup-place',
   (inputData) => {
     section.addItem(makeCard(inputData));
     newPlacePopup.close();
   });
+  newPlacePopup.setEventListeners();//new
+
+const imagePopup = new PopupWithImage('.popup-foto');
+imagePopup.setEventListeners();
 
 // handle functions
 function handleOpenUserPopup() {
@@ -48,13 +50,11 @@ function handleOpenUserPopup() {
   newProfileJob.value = userInfo.getUserInfo().job;
   userFormValidation.resetValidation();
   userPopup.open();
-  userPopup.setEventListeners();
 }
 
 function handleOpenPlacePopup() {
   placeFormValidation.resetValidation();
   newPlacePopup.open();
-  newPlacePopup.setEventListeners();
 }
 
 // main code

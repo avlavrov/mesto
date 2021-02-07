@@ -18,24 +18,13 @@ export class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-  // _submitter () {
-  //   this._getInputValues();
-  //   this._handleSubmit(this._formValues);
-  // }
-
   close() {
-    this._popupElement.classList.remove('popup_opened');
-    this._closePopupButton.removeEventListener('click', this.close.bind(this));
-    this._popupElement.removeEventListener('click', this._closePopupOverlay.bind(this));
-    document.removeEventListener('keydown', this._handleEscClose.bind(this));
-    this._form.removeEventListener('submit', this._handler);
+    super.close();
     this._form.reset();
   }
 
   setEventListeners() {
-    this._closePopupButton.addEventListener('click', this.close.bind(this));
-    this._popupElement.addEventListener('click', this._closePopupOverlay.bind(this));
-    document.addEventListener('keydown', this._handleEscClose.bind(this));
+    super.setEventListeners();
     this._form.addEventListener('submit', this._handler);
   }
 }
