@@ -1,11 +1,24 @@
 export class Section {
-  constructor({items, renderer}, containerSelector) {
-    this._dataToAdd = items;
+  constructor({renderer}, containerSelector, api) {
     this._container = containerSelector;
     this._renderer = renderer;
+    this._api = api;
   }
 
-  renderer() {
+  saveCard(inputData, url) {
+    return this._api
+    .addData(inputData, url)
+    .then((res) => {return res})
+  }
+
+  deleteCard(inputData, url) {
+    return this._api
+      .deleteData(inputData, url)
+      .then((res) => { return res})
+  }
+
+  renderer(items) {
+    this._dataToAdd = items;
     this._dataToAdd.forEach(item => this._renderer(item));
     }
 
