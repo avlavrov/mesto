@@ -11,9 +11,13 @@ export class Section {
     .then((res) => {return res})
   }
 
-  deleteCard(inputData, url) {
+  handleDeletePlace(evt) {
+    evt.target.closest('.elements__element').remove();
+  };
+
+  deleteCard(cardID, url) {
     return this._api
-      .deleteData(inputData, url)
+      .deleteData(`${url}/${cardID}`)
       .then((res) => { return res})
   }
 

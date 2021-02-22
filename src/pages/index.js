@@ -13,15 +13,31 @@ import { Api } from '../scripts/components/Api.js'
 import { validatorConfig, sectionPlaces, buttonAvatarEdit, buttonUserEdit, buttonNewPlace, formAvatar, formUser, newProfileName, newProfileJob, formPlace } from '../scripts/utils/constants.js';
 export let myID = '';
 //Functions for class initialization
+
 function makeCard(cardAtt, api) {
-  const card = new Card(
-    cardAtt,
+  const cardObj = new Card(
+    cardAtt, //Data from server
     api,
     '#place-template',
-    () => { imagePopup.open(cardAtt) },
-    (cardID) => { cautionPopup.open(cardID) }
-  )
-    .generateCard();
+    () => { imagePopup.open(cardAtt) }, //Handler of the clicking the card
+    (cardID, cardEvenet) => { cautionPopup.open(cardID, cardEvenet) }, //Handler of card deletion
+    (cardID, cardEvent) => { //Handler of likebutton
+      if (cardEvent.target.classList.contains('elements__like_active')) {
+        cardObj.dislikeCard(cardID, 'https://mesto.nomoreparties.co/v1/cohort-20/cards/likes')
+          .then((cardData) => {
+            cardObj.handleLikePlace(cardEvent);
+            cardEvent.target.closest('.elements__element').querySelector('.elements__num-like').textContent = cardData.likes.length;
+          })
+      } else {
+        cardObj.likeCard(cardID, 'https://mesto.nomoreparties.co/v1/cohort-20/cards/likes')
+          .then((cardData) => {
+            cardObj.handleLikePlace(cardEvent);
+            cardEvent.target.closest('.elements__element').querySelector('.elements__num-like').textContent = cardData.likes.length;
+          })
+      }
+    },
+  );
+  const card = cardObj.generateCard();
   return card;
 }
 
@@ -45,16 +61,23 @@ const section = new Section(
 //Initialisation of Popups
 const avatarPopup = new PopupWithForm('.popup-avatar',
   (inputData) => {
-    userInfo.saveUserInfo(inputData, 'https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar/ ');
-    avatarPopup.close();
+    avatarPopup.renderLoading(true);
+    userInfo.saveUserInfo(inputData, 'https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar/ ')
+      .then((data) => {
+        userInfo.setUserInfo(data);
+        avatarPopup.renderLoading(false);
+        avatarPopup.close();
+      })
   });
 avatarPopup.setEventListeners();
 
 const userPopup = new PopupWithForm('.popup-user',
   (inputData) => {
+    userPopup.renderLoading(true);
     userInfo.saveUserInfo(inputData, 'https://mesto.nomoreparties.co/v1/cohort-20/users/me')
       .then((data) => {
         userInfo.setUserInfo(data);
+        userPopup.renderLoading(false);
         userPopup.close();
       })
   });
@@ -62,9 +85,11 @@ userPopup.setEventListeners();
 
 const newPlacePopup = new PopupWithForm('.popup-place',
   (inputData) => {
-    section.saveCard(inputData, 'https://mesto.nomoreparties.co/v1/cohort-20/cards')
-      .then((data) => {
+    newPlacePopup.renderLoading(true);
+    section.saveCard(inputData, 'https://mesto.nomoreparties.co/v1/cohort-20/cards')// sending link and name and getting back full card attributes
+      .then((data) => { // transfer all card attributes from server to the new card
         section.addItem(makeCard(data, api));
+        newPlacePopup.renderLoading(false);
         newPlacePopup.close();
       })
   });
@@ -76,11 +101,12 @@ imagePopup.setEventListeners();
 const cautionPopup = new PopupWithSubmit(
   '.popup-caution',
   api,
-  (cardID) => {
-    console.log(cardID);
+  (cardID, eventCard) => {
+    cautionPopup.renderLoading(true);
     section.deleteCard(cardID, 'https://mesto.nomoreparties.co/v1/cohort-20/cards')
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        section.handleDeletePlace(eventCard);
+        cautionPopup.renderLoading(false);
         cautionPopup.close();
       })
   }
@@ -101,8 +127,6 @@ api
     section.renderer(initialCards);
   })
   .catch((err) => { console.log(err) });
-
-
 
 // handle functions
 function handleOpenAvatarPopup() {

@@ -6,7 +6,7 @@
   position: absolute;
   top: -40px;
   right: -40px;
-  transition: 0.4s linear;
+  transition: opacity 0.4s linear;
   border: none;
   padding: 0;
   background-position: center;

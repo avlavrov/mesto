@@ -5,14 +5,26 @@ export class PopupWithSubmit extends Popup {
     super(popupSelector);
     this._submitButton = this._popupElement.querySelector('.popup__button');
     this._handleSubmit = handleSubmit;
-    this._handler = () => {this._handleSubmit(this._cardID)};
+    this._handler = () => {this._handleSubmit(this._cardID, this._cardEvenet)};
     this._closePopupButton = this._popupElement.querySelector('.popup__container-close');
     this._api = api;
   }
 
-  open(cardID) {
+  renderLoading(isLoading) {
+    const button = this._popupElement.querySelector('.popup__button');
+    if (isLoading) {
+      button.classList.add('popup__button_disabled');
+      button.textContent = 'Удаление...';
+    } else {
+      button.textContent = 'Да';
+      button.classList.remove('popup__button_disabled');
+    };
+  }
+
+  open(cardID, cardEvent) {
     super.open();
     this._cardID = cardID;
+    this._cardEvenet = cardEvent;
   }
 
   setEventListeners() {

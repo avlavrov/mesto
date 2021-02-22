@@ -4,19 +4,19 @@ export class Api {
     this._headers = config.headers;
   }
 
-  renderLoading(isLoading) {
-    if (isLoading) {
-      Array.from(document.querySelectorAll('.popup__button')).forEach((button) => {
-        button.classList.add('popup__button_disabled');
-        button.textContent = 'Сохранение...';
-      });
-    } else {
-      Array.from(document.querySelectorAll('.popup__button')).forEach((button) => {
-        button.textContent = 'Сохранить';
-        button.classList.remove('popup__button_disabled');
-      });
-    }
-  }
+  // renderLoading(isLoading) {
+  //   if (isLoading) {
+  //     Array.from(document.querySelectorAll('.popup__button')).forEach((button) => {
+  //       button.classList.add('popup__button_disabled');
+  //       button.textContent = 'Сохранение...';
+  //     });
+  //   } else {
+  //     Array.from(document.querySelectorAll('.popup__button')).forEach((button) => {
+  //       button.textContent = 'Сохранить';
+  //       button.classList.remove('popup__button_disabled');
+  //     });
+  //   }
+  // }
 
   getInitialData(url) {
     return fetch(url, {
@@ -30,7 +30,7 @@ export class Api {
   }
 
   editData(inputData, url) {
-    this.renderLoading(true);
+    // this.renderLoading(true);
     return fetch(url, {
       method: "PATCH",
       headers: this._headers,
@@ -38,7 +38,7 @@ export class Api {
     })
       .then((res) => {
         if (res.ok) {
-          this.renderLoading(false);
+          // this.renderLoading(false);
           return res.json();
         }
         return Promise.reject(`Ошибка: ${err}`);
@@ -46,7 +46,7 @@ export class Api {
   }
 
   addData(inputData, url) {
-    this.renderLoading(true);
+    // this.renderLoading(true);
     return fetch(url, {
       method: "POST",
       headers: this._headers,
@@ -54,39 +54,37 @@ export class Api {
     })
       .then((res) => {
         if (res.ok) {
-          this.renderLoading(false);
+          // this.renderLoading(false);
           return res.json();
         }
         return Promise.reject(`Ошибка: ${err}`);
       })
   }
 
-  putData(inputData, url) {
-    this.renderLoading(true);
+  putData(url) {
+    // this.renderLoading(true);
     return fetch(url, {
       method: "PUT",
       headers: this._headers,
-      body: JSON.stringify(inputData)
     })
       .then((res) => {
         if (res.ok) {
-          this.renderLoading(false);
+          // this.renderLoading(false);
           return res.json();
         }
         return Promise.reject(`Ошибка: ${err}`);
       })
   }
 
-
-  deleteData(id, url) {
-    this.renderLoading(true);
-    return fetch(`${url}/${id}`, {
+  deleteData(url) {
+    // this.renderLoading(true);
+    return fetch(url, {
       method: "DELETE",
       headers: this._headers
     })
       .then((res) => {
         if (res.ok) {
-          this.renderLoading(false);
+          // this.renderLoading(false);
           return res.json();
         }
         return Promise.reject(`Ошибка: ${err}`);

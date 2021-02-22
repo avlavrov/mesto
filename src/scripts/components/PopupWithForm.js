@@ -7,12 +7,23 @@ export class PopupWithForm extends Popup {
     this._form = this._popupElement.querySelector('.popup__form');
     this._inputList = this._form.querySelectorAll('.popup__input');
     this._closePopupButton = this._popupElement.querySelector('.popup__container-close');
-    this._handler = () => {this._handleSubmit(this._getInputValues())};
+    this._handler = () => { this._handleSubmit(this._getInputValues()) };
     this._id = id;
   }
 
+  renderLoading(isLoading) {
+    const button = this._popupElement.querySelector('.popup__button');
+    if (isLoading) {
+      button.classList.add('popup__button_disabled');
+      button.textContent = 'Сохранение...';
+    } else {
+      button.textContent = 'Сохранить';
+      button.classList.remove('popup__button_disabled');
+    };
+  }
+
   _getInputValues() {
-    this._formValues = {id: this._id};
+    this._formValues = { id: this._id };
     this._inputList.forEach(input => {
       this._formValues[input.name] = input.value;
     });

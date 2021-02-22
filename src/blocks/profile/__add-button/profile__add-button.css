@@ -12,7 +12,7 @@ border: 2px solid #FFFFFF;
 box-sizing: border-box;
 border-radius: 2px;
 padding: 0;
-transition: 0.4s linear;
+transition: opacity 0.4s linear;
 }
 
 .profile__add-button:hover {
