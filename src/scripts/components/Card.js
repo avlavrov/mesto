@@ -11,12 +11,14 @@ export class Card {
     this._handleCardDelete = handleCardDelete;
     this._handleCardLike = handleCardLike;
     this._handlerLike = (event) => {
+      event.preventDefault();
       this._event =event;
       this._handleCardLike(this._id, this._event)
     };
     this._id = cardAttributes._id;
     this._api = api;
     this._handlerDelet = (event) => {
+      event.preventDefault();
       this._event = event;
       this._handleCardDelete(this._id, this._event)
     };
