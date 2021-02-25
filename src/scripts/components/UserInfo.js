@@ -12,9 +12,15 @@ export class UserInfo {
     return ({job: this._job.textContent, name: this._name.textContent});
   }
 
-  saveUserInfo(inputData, url) {
+  saveUserInfo(inputData) {
     return this._api
-    .editData(inputData, url)
+    .editUser(inputData)
+    .then((res) => {return res})
+  }
+
+  saveAvatar(inputData) {
+    return this._api
+    .editAvatar(inputData)
     .then((res) => {return res})
   }
 

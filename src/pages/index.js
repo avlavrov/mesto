@@ -16,6 +16,7 @@ export let myID = '';
 
 function makeCard(cardAtt, api) {
   const cardObj = new Card(
+    myID,
     cardAtt, //Data from server
     api,
     '#place-template',
@@ -23,17 +24,13 @@ function makeCard(cardAtt, api) {
     (cardID, cardEvenet) => { cautionPopup.open(cardID, cardEvenet) }, //Handler of card deletion
     (cardID, cardEvent) => { //Handler of likebutton
       if (cardEvent.target.classList.contains('elements__like_active')) {
-        cardObj.dislikeCard(cardID, 'https://mesto.nomoreparties.co/v1/cohort-20/cards/likes')
-          .then((cardData) => {
-            cardObj.handleLikePlace(cardEvent);
-            cardEvent.target.closest('.elements__element').querySelector('.elements__num-like').textContent = cardData.likes.length;
-          })
+        cardObj.dislikeCard(cardID)
+          .then((cardData) => { cardObj.handleLikePlace(cardEvent, cardData); })
+          .catch((err) => { console.log(err) });
       } else {
-        cardObj.likeCard(cardID, 'https://mesto.nomoreparties.co/v1/cohort-20/cards/likes')
-          .then((cardData) => {
-            cardObj.handleLikePlace(cardEvent);
-            cardEvent.target.closest('.elements__element').querySelector('.elements__num-like').textContent = cardData.likes.length;
-          })
+        cardObj.likeCard(cardID)
+          .then((cardData) => { cardObj.handleLikePlace(cardEvent, cardData); })
+          .catch((err) => { console.log(err) });
       }
     },
   );
@@ -46,6 +43,7 @@ const avatarFormValidation = new FormValidator(validatorConfig, formAvatar);
 const userFormValidation = new FormValidator(validatorConfig, formUser);
 const placeFormValidation = new FormValidator(validatorConfig, formPlace);
 const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-20/',
   headers: {
     authorization: '7b0dc8fa-cb4a-4707-9472-09ad5b621144',
     'Content-Type': 'application/json'
@@ -62,36 +60,39 @@ const section = new Section(
 const avatarPopup = new PopupWithForm('.popup-avatar',
   (inputData) => {
     avatarPopup.renderLoading(true);
-    userInfo.saveUserInfo(inputData, 'https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar/ ')
+    userInfo.saveAvatar(inputData)
       .then((data) => {
         userInfo.setUserInfo(data);
         avatarPopup.renderLoading(false);
         avatarPopup.close();
       })
+      .catch((err) => { console.log(err) });
   });
 avatarPopup.setEventListeners();
 
 const userPopup = new PopupWithForm('.popup-user',
   (inputData) => {
     userPopup.renderLoading(true);
-    userInfo.saveUserInfo(inputData, 'https://mesto.nomoreparties.co/v1/cohort-20/users/me')
+    userInfo.saveUserInfo(inputData)
       .then((data) => {
         userInfo.setUserInfo(data);
         userPopup.renderLoading(false);
         userPopup.close();
       })
+      .catch((err) => { console.log(err) });
   });
 userPopup.setEventListeners();
 
 const newPlacePopup = new PopupWithForm('.popup-place',
   (inputData) => {
     newPlacePopup.renderLoading(true);
-    section.saveCard(inputData, 'https://mesto.nomoreparties.co/v1/cohort-20/cards')// sending link and name and getting back full card attributes
+    section.saveCard(inputData, 'cards')// sending link and name and getting back full card attributes
       .then((data) => { // transfer all card attributes from server to the new card
         section.addItem(makeCard(data, api));
         newPlacePopup.renderLoading(false);
         newPlacePopup.close();
       })
+      .catch((err) => { console.log(err) });
   });
 newPlacePopup.setEventListeners();
 
@@ -103,18 +104,19 @@ const cautionPopup = new PopupWithSubmit(
   api,
   (cardID, eventCard) => {
     cautionPopup.renderLoading(true);
-    section.deleteCard(cardID, 'https://mesto.nomoreparties.co/v1/cohort-20/cards')
+    section.deleteCard(cardID)
       .then(() => {
         section.handleDeletePlace(eventCard);
         cautionPopup.renderLoading(false);
         cautionPopup.close();
       })
+      .catch((err) => { console.log(err) });
   }
 );
 cautionPopup.setEventListeners();
 
 api
-  .getInitialData('https://mesto.nomoreparties.co/v1/cohort-20/users/me')
+  .getInitialUser()
   .then(data => {
     userInfo.setUserInfo(data);
     myID = data._id;
@@ -122,7 +124,7 @@ api
   .catch((err) => { console.log(err) });
 
 api
-  .getInitialData('https://mesto.nomoreparties.co/v1/cohort-20/cards')
+  .getInitialCards()
   .then((initialCards) => {
     section.renderer(initialCards);
   })

@@ -1,7 +1,6 @@
-import { myID } from '../../pages';
-
 export class Card {
-  constructor(cardAttributes, api, cardTemplate, handleCardClick, handleCardDelete, handleCardLike) {
+  constructor(myID, cardAttributes, api, cardTemplate, handleCardClick, handleCardDelete, handleCardLike) {
+    this._myID = myID;
     this._link = cardAttributes.link;
     this._name = cardAttributes.name;
     this._likes = cardAttributes.likes;
@@ -32,15 +31,15 @@ export class Card {
       .cloneNode(true);
   }
 
-  likeCard(cardID, url) {
+  likeCard(cardID) {
     return this._api
-    .putData(`${url}/${cardID}`)
+    .putLike(cardID)
     .then((res) => {return res})
   }
 
-  dislikeCard(cardID, url) {
+  dislikeCard(cardID) {
     return this._api
-    .deleteData(`${url}/${cardID}`)
+    .deleteLike(cardID)
     .then((res) => {return res})
   }
 
@@ -53,8 +52,9 @@ export class Card {
   };
 
   // handle functions
-  handleLikePlace(evt) {
+  handleLikePlace(evt, cardData) {
     evt.target.classList.toggle('elements__like_active');
+    evt.target.closest('.elements__element').querySelector('.elements__num-like').textContent = cardData.likes.length;
   };
 
   generateCard() {
@@ -65,10 +65,10 @@ export class Card {
     this._elementImage.src = this._link;
     if (this._likes === undefined)
         { this._likes = [] }
-      else if (this._likes.some(elem => elem._id === myID))
+      else if (this._likes.some(elem => elem._id === this._myID))
             {this._element.querySelector('.elements__like').classList.add('elements__like_active')};
     this._element.querySelector('.elements__num-like').textContent= this._likes.length;
-    if (this._userID === myID) {
+    if (this._userID === this._myID) {
       this._element.querySelector('.elements__delete-button').classList.remove('elements__delete-button_hidden');}
     return this._element;
   }

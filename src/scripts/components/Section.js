@@ -5,9 +5,9 @@ export class Section {
     this._api = api;
   }
 
-  saveCard(inputData, url) {
+  saveCard(inputData) {
     return this._api
-    .addData(inputData, url)
+    .saveCard(inputData)
     .then((res) => {return res})
   }
 
@@ -15,9 +15,9 @@ export class Section {
     evt.target.closest('.elements__element').remove();
   };
 
-  deleteCard(cardID, url) {
+  deleteCard(cardID) {
     return this._api
-      .deleteData(`${url}/${cardID}`)
+      .deleteCard(cardID)
       .then((res) => { return res})
   }
 

@@ -7,18 +7,18 @@ export class PopupWithForm extends Popup {
     this._form = this._popupElement.querySelector('.popup__form');
     this._inputList = this._form.querySelectorAll('.popup__input');
     this._closePopupButton = this._popupElement.querySelector('.popup__container-close');
+    this._button = this._popupElement.querySelector('.popup__button');
     this._handler = () => { this._handleSubmit(this._getInputValues()) };
     this._id = id;
   }
 
   renderLoading(isLoading) {
-    const button = this._popupElement.querySelector('.popup__button');
     if (isLoading) {
-      button.classList.add('popup__button_disabled');
-      button.textContent = 'Сохранение...';
+      this._button.classList.add('popup__button_disabled');
+      this._button.textContent = 'Сохранение...';
     } else {
-      button.textContent = 'Сохранить';
-      button.classList.remove('popup__button_disabled');
+      this._button.textContent = 'Сохранить';
+      this._button.classList.remove('popup__button_disabled');
     };
   }
 

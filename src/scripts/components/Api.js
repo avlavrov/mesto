@@ -1,93 +1,80 @@
 
 export class Api {
   constructor(config) {
+    this._baseUrl = config.baseUrl;
     this._headers = config.headers;
   }
 
-  // renderLoading(isLoading) {
-  //   if (isLoading) {
-  //     Array.from(document.querySelectorAll('.popup__button')).forEach((button) => {
-  //       button.classList.add('popup__button_disabled');
-  //       button.textContent = 'Сохранение...';
-  //     });
-  //   } else {
-  //     Array.from(document.querySelectorAll('.popup__button')).forEach((button) => {
-  //       button.textContent = 'Сохранить';
-  //       button.classList.remove('popup__button_disabled');
-  //     });
-  //   }
-  // }
+  _checkResponse(res) {
+    if (res.ok) { return res.json(); }
+    return Promise.reject(`Ошибка: ${err}`);
 
-  getInitialData(url) {
-    return fetch(url, {
+  }
+
+  getInitialUser() {
+  return fetch(`${this._baseUrl}users/me`, {
       method: "GET",
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) { return res.json(); }
-        return Promise.reject(`Ошибка: ${err}`);
-      })
+      .then(this._checkResponse)
   }
 
-  editData(inputData, url) {
-    // this.renderLoading(true);
-    return fetch(url, {
+  getInitialCards() {
+    return fetch(`${this._baseUrl}cards/`, {
+      method: "GET",
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+  }
+
+  editUser(inputData) {
+    return fetch(`${this._baseUrl}users/me/`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify(inputData)
     })
-      .then((res) => {
-        if (res.ok) {
-          // this.renderLoading(false);
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${err}`);
-      })
+      .then(this._checkResponse)
   }
 
-  addData(inputData, url) {
-    // this.renderLoading(true);
-    return fetch(url, {
+  editAvatar(inputData) {
+    return fetch(`${this._baseUrl}users/me/avatar/`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify(inputData)
+    })
+      .then(this._checkResponse)
+  }
+
+  saveCard(inputData) {
+    return fetch(`${this._baseUrl}cards/`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(inputData)
     })
-      .then((res) => {
-        if (res.ok) {
-          // this.renderLoading(false);
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${err}`);
-      })
+      .then(this._checkResponse)
   }
 
-  putData(url) {
-    // this.renderLoading(true);
-    return fetch(url, {
+  putLike(cardID) {
+    return fetch(`${this._baseUrl}cards/likes/${cardID}`, {
       method: "PUT",
       headers: this._headers,
     })
-      .then((res) => {
-        if (res.ok) {
-          // this.renderLoading(false);
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${err}`);
-      })
+      .then(this._checkResponse)
   }
 
-  deleteData(url) {
-    // this.renderLoading(true);
-    return fetch(url, {
+  deleteCard(cardID) {
+    return fetch(`${this._baseUrl}cards/${cardID}`, {
       method: "DELETE",
       headers: this._headers
     })
-      .then((res) => {
-        if (res.ok) {
-          // this.renderLoading(false);
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${err}`);
-      })
+      .then(this._checkResponse)
+  }
+
+  deleteLike(cardID) {
+    return fetch(`${this._baseUrl}cards/likes/${cardID}`, {
+      method: "DELETE",
+      headers: this._headers
+    })
+      .then(this._checkResponse)
   }
 }

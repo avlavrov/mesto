@@ -11,13 +11,12 @@ export class PopupWithSubmit extends Popup {
   }
 
   renderLoading(isLoading) {
-    const button = this._popupElement.querySelector('.popup__button');
     if (isLoading) {
-      button.classList.add('popup__button_disabled');
-      button.textContent = 'Удаление...';
+      this._submitButton.classList.add('popup__button_disabled');
+      this._submitButton.textContent = 'Удаление...';
     } else {
-      button.textContent = 'Да';
-      button.classList.remove('popup__button_disabled');
+      this._submitButton.textContent = 'Да';
+      this._submitButton.classList.remove('popup__button_disabled');
     };
   }
 
